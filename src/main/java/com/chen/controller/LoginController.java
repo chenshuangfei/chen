@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chen.pojo.EmployeeInfo;
-import com.chen.pojo.User;
 import com.chen.service.EmployeeInfoService;
 import com.chen.service.UserSerivce;
 
