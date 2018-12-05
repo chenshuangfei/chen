@@ -1,0 +1,69 @@
+.tab-vertical {
+	font-family: 'Microsoft YaHei';
+	position: relative;
+	clear: both;
+	/*width: 1655px;*/
+	width: 100%;
+}
+.tab-header {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+
+	width: 32px;
+	height: 300px;
+	text-align: center;
+}
+.tab-header .tab-line{
+	height: 2px;
+	line-height: 2px;
+	width: 100%;
+	float: left;
+}
+.tab-header .tab-item {
+	line-height: 20px;
+	float: right;
+	width: 27px;
+	height: 50%;
+	cursor: pointer;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background: #d6d5d5;
+}
+.tab-header .tab-item.active {
+	width: 32px;
+	background: #3cd2dd;
+}
+.tab-item span {
+	font-size: 16px;
+	display: block;
+	width: 16px;
+	margin: 25px auto;
+	vertical-align: middle;
+	color: #333;
+}
+.tab-item.active span {
+	color: #fff;
+}
+
+
+.tab-body {
+	margin-left: 42px;
+	padding:0px;
+	border:1px seashell;
+	background: #f7f7f7;
+
+}
+.week-content {
+	position: relative;
+	height:100%;
+}
+.week-bar {
+	font-family: 'Microsoft YaHei';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+

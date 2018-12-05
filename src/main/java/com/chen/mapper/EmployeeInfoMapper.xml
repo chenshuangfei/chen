@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chen.dao.EmployeeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.chen.pojo.EmployeeInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="staffno" property="staffno" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="post" property="post" jdbcType="VARCHAR" />
+    <result column="basicwages" property="basicwages" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="floatingbonus" property="floatingbonus" jdbcType="DECIMAL" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="brithday" property="brithday" jdbcType="TIMESTAMP" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="Politicalaspects" property="politicalaspects" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectEmployeeInfo"  parameterType="com.chen.pojo.EmployeeInfo" resultType="com.chen.pojo.EmployeeInfo">
+    select * from employee_info where  name = #{name} and password=#{password}
+  </select>
+  <select id="selectEmployeeInfoAll" parameterType="java.util.Map" resultType="com.chen.pojo.EmployeeInfo">
+    select * from employee_info where 1=1
+    <if test="name!=null and ''!=name">
+            and name = #{name}
+        </if>
+        <if test="post1!=null and ''!=post1">
+            and post = #{post1}
+        </if>
+       order by staffno ASC
+      <if test="limit != null">
+            limit #{startNum}, #{limit}
+
+       </if> 
+  </select>
+ 
+  <select id="selectEmployeeIncount" parameterType="java.util.Map" resultType="int">
+    select count(*) from employee_info 
+  </select> 
+  
+  <select id="selectEmployeeInfolast"   resultType="com.chen.pojo.EmployeeInfo">
+    SELECT * FROM employee_info ORDER BY id DESC LIMIT 1
+  </select>
+  <select id="selectEmployeeInfoNameorPossword" parameterType="java.util.Map"  resultType="com.chen.pojo.EmployeeInfo">
+    SELECT * FROM employee_info where 1=1
+    	<if test="name != null" >
+        and name = #{name}
+      </if>
+      <if test="password != null" >
+      	and password = #{password}
+      </if>
+  </select>
+  
+  
+  <sql id="Base_Column_List" >
+    id, staffno, department, password, post, basicwages, name, floatingbonus, sex, brithday, 
+    createtime, creater, Politicalaspects
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from employee_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.chen.pojo.EmployeeInfo" >
+    insert into employee_info (id, staffno, department, 
+      password, post, basicwages, 
+      name, floatingbonus, sex, 
+      brithday, createtime, creater, 
+      Politicalaspects)
+    values (#{id,jdbcType=BIGINT}, #{staffno,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR}, #{basicwages,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{floatingbonus,jdbcType=DECIMAL}, #{sex,jdbcType=VARCHAR}, 
+      #{brithday,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{politicalaspects,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.pojo.EmployeeInfo" >
+    insert into employee_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="staffno != null" >
+        staffno,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="post != null" >
+        post,
+      </if>
+      <if test="basicwages != null" >
+        basicwages,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+        floatingbonus,
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="brithday != null" >
+        brithday,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="politicalaspects != null" >
+        Politicalaspects,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="staffno != null" >
+        #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="basicwages != null" >
+        #{basicwages,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      
+        #{floatingbonus,jdbcType=DECIMAL},
+      
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="brithday != null" >
+        #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalaspects != null" >
+        #{politicalaspects,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chen.pojo.EmployeeInfo" >
+    update employee_info
+    <set >
+      <if test="staffno != null" >
+        staffno = #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="basicwages != null" >
+        basicwages = #{basicwages,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingbonus != null" >
+        floatingbonus = #{floatingbonus,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="brithday != null" >
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalaspects != null" >
+        Politicalaspects = #{politicalaspects,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chen.pojo.EmployeeInfo" >
+    update employee_info
+    set staffno = #{staffno,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      post = #{post,jdbcType=VARCHAR},
+      basicwages = #{basicwages,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      floatingbonus = #{floatingbonus,jdbcType=DECIMAL},
+      sex = #{sex,jdbcType=VARCHAR},
+      brithday = #{brithday,jdbcType=TIMESTAMP},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      Politicalaspects = #{politicalaspects,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

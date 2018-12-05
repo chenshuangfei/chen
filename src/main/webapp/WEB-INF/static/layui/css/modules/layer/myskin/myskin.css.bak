@@ -1,0 +1,4 @@
+body .layer-ext-yourskin .layui-layer-title{
+			background: url(../img/head-background.png) no-repeat;
+			background-size: cover;
+}

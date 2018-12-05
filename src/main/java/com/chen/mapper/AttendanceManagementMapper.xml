@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chen.dao.AttendanceManagementMapper">
+  <resultMap id="BaseResultMap" type="com.chen.pojo.AttendanceManagement">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="attendanceno" jdbcType="VARCHAR" property="attendanceno" />
+    <result column="staffno" jdbcType="VARCHAR" property="staffno" />
+    <result column="attendancetime" jdbcType="TIMESTAMP" property="attendancetime" />
+    <result column="latenessnumber" jdbcType="INTEGER" property="latenessnumber" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+  </resultMap>
+ 
+  <select id="selectAttendanceManagement"  parameterType="java.lang.String" resultType="com.chen.pojo.AttendanceManagement">
+	SELECT * FROM  attendance_management WHERE DATE(attendancetime) = CURDATE() and staffno=#{staffno}
+ </select>
+  <select id="selectAttendanceManagementcount" parameterType="java.util.Map" resultType="int">
+    select count(*) from attendance_management 
+  </select>
+ <select id="selectAttendanceManagementfo"  parameterType="java.lang.String" resultType="com.chen.pojo.AttendanceManagement">
+  SELECT * FROM attendance_management WHERE staffno=#{staffno}  ORDER BY  attendancetime  DESC LIMIT 1
+ </select>
+  <select id="selectAttendanceManagementAll" parameterType="java.util.Map" resultType="com.chen.pojo.AttendanceManagement">
+    select * from attendance_management where 1=1
+    <if test="staffno!=null and ''!=staffno">
+            and staffno = #{staffno}
+        </if>
+        <if test="attendanceno!=null and ''!=attendanceno">
+            and attendanceno = #{attendanceno}
+        </if>
+       order by staffno ASC
+      <if test="limit != null">
+            limit #{startNum}, #{limit}
+
+       </if> 
+  </select>
+  
+  <sql id="Base_Column_List">
+    id, attendanceno, staffno, attendancetime, latenessnumber, creater
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attendance_management
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from attendance_management
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.chen.pojo.AttendanceManagement">
+    insert into attendance_management (id, attendanceno, staffno, 
+      attendancetime, latenessnumber, creater
+      )
+    values (#{id,jdbcType=BIGINT}, #{attendanceno,jdbcType=VARCHAR}, #{staffno,jdbcType=VARCHAR}, 
+      #{attendancetime,jdbcType=TIMESTAMP}, #{latenessnumber,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chen.pojo.AttendanceManagement">
+    insert into attendance_management
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="attendanceno != null">
+        attendanceno,
+      </if>
+      <if test="staffno != null">
+        staffno,
+      </if>
+      <if test="attendancetime != null">
+        attendancetime,
+      </if>
+      <if test="latenessnumber != null">
+        latenessnumber,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceno != null">
+        #{attendanceno,jdbcType=VARCHAR},
+      </if>
+      <if test="staffno != null">
+        #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="attendancetime != null">
+        #{attendancetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latenessnumber != null">
+        #{latenessnumber,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chen.pojo.AttendanceManagement">
+    update attendance_management
+    <set>
+      <if test="attendanceno != null">
+        attendanceno = #{attendanceno,jdbcType=VARCHAR},
+      </if>
+      <if test="staffno != null">
+        staffno = #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="attendancetime != null">
+        attendancetime = #{attendancetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latenessnumber != null">
+        latenessnumber = #{latenessnumber,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chen.pojo.AttendanceManagement">
+    update attendance_management
+    set attendanceno = #{attendanceno,jdbcType=VARCHAR},
+      staffno = #{staffno,jdbcType=VARCHAR},
+      attendancetime = #{attendancetime,jdbcType=TIMESTAMP},
+      latenessnumber = #{latenessnumber,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
